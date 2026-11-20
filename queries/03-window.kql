@@ -1,0 +1,15 @@
+// Each row is one sign-in. For the boundary test change minute 4 to 11.
+let SignIns = datatable(Account:string, Minute:int, Result:string)
+[
+    "student-a", 0, "Failed", "student-a", 1, "Failed", "student-a", 2, "Failed",
+    "student-a", 3, "Failed", "student-a", 4, "Failed",
+    "student-b", 0, "Failed", "student-b", 15, "Failed", "student-b", 30, "Failed",
+    "student-b", 45, "Failed", "student-b", 60, "Failed"
+];
+let Failures = SignIns | where Result == "Failed";
+Failures
+| distinct Account, StartMinute = Minute
+| join kind=inner (Failures) on Account
+| where Minute between (StartMinute .. StartMinute + 10)
+| summarize Failures = count() by Account, StartMinute
+| where Failures >= 5

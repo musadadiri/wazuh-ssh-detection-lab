@@ -1,0 +1,15 @@
+// All rows represent failures. Device labels and case labels were assigned for the exercise.
+let SignIns = datatable(Account:string, Minute:int, Device:string)
+[
+    "student-a", 0, "New", "student-a", 1, "New", "student-a", 2, "New",
+    "student-a", 3, "New", "student-a", 4, "New",
+    "student-b", 0, "Usual", "student-b", 2, "Usual", "student-b", 4, "Usual",
+    "student-b", 6, "Usual", "student-b", 8, "Usual"
+];
+let NewDeviceFailures = SignIns | where Device == "New";
+NewDeviceFailures
+| distinct Account, StartMinute = Minute
+| join kind=inner (NewDeviceFailures) on Account
+| where Minute between (StartMinute .. StartMinute + 10)
+| summarize Failures = count() by Account, StartMinute
+| where Failures >= 5

@@ -1,0 +1,7 @@
+<group name="local,sshd,">
+  <rule id="100105" level="8" frequency="5" timeframe="600">
+    <if_matched_sid>5710</if_matched_sid>
+    <same_srcuser />
+    <description>Lab: Five SSH failures for the same nonexistent username within ten minutes.</description>
+  </rule>
+</group>

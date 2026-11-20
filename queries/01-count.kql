@@ -1,0 +1,9 @@
+datatable(Account:string, Result:string)
+[
+    "student-a", "Failed", "student-b", "Failed",
+    "student-a", "Failed", "student-b", "Success",
+    "student-a", "Failed", "student-a", "Failed", "student-a", "Failed"
+]
+| where Result == "Failed"
+| summarize FailedAttempts = count() by Account
+| where FailedAttempts >= 5

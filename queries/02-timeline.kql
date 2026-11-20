@@ -1,0 +1,13 @@
+datatable(Time:datetime, Account:string, Result:string)
+[
+    datetime(2026-11-20 09:00), "student-a", "Failed",
+    datetime(2026-11-20 09:01), "student-b", "Failed",
+    datetime(2026-11-20 09:02), "student-a", "Failed",
+    datetime(2026-11-20 09:03), "student-b", "Success",
+    datetime(2026-11-20 09:04), "student-a", "Failed",
+    datetime(2026-11-20 09:05), "student-a", "Failed",
+    datetime(2026-11-20 09:06), "student-a", "Failed",
+    datetime(2026-11-20 09:07), "student-a", "Success"
+]
+| where Account == "student-a"
+| sort by Time asc
